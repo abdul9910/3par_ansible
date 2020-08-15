@@ -3,8 +3,6 @@
 ##########################################################
 
 # Cluster Login
-storage_system_ip: 192.168.222.140
-storage_system_username: msattar
-storage_system_password: changeme
-https_option: true
-validate_certs_option: false
+storage_system_ip: sg5lab-001.3par
+storage_system_username: 3paradm
+storage_system_password: PTzk5fVt
