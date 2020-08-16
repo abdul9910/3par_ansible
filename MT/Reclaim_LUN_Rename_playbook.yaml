@@ -1,0 +1,39 @@
+---
+
+- hosts: localhost
+  name: Reclaim The Virtual LUN
+  gather_facts: true
+  vars_prompt:
+     - name: vlun_volume_name
+       prompt: "Enter Reclaim Volume name"
+       private: no
+     - name: vlun_host_name
+       prompt: "Enter Host Name"
+       private: no
+     - name: lunid
+       prompt: "Enter Volume Number"
+       private: no
+     - name: new_name
+       prompt: "Enter the Rename Name of Volume"
+       private: no
+  vars_files:
+  - login_all.yml
+  tasks:
+  - name: Reclaim the VLUN in 3par S608897-005.3PAR
+    hpe3par_vlun: 
+      storage_system_ip="{{ storage_system_ip }}"
+      storage_system_username="{{ storage_system_username }}"
+      storage_system_password="{{ storage_system_password }}"
+      state=unexport_volume_from_host 
+      volume_name="{{ vlun_volume_name }}"
+      host_name="{{ vlun_host_name }}"
+      lunid="{{ lunid }}"
+  - name: Renaming the Claim LUN
+    hpe3par_volume: 
+      storage_system_ip="{{ storage_system_ip }}"
+      storage_system_username="{{ storage_system_username }}"
+      storage_system_password="{{ storage_system_password }}"
+      state=modify
+      volume_name="{{ vlun_volume_name }}"
+      new_name="{{ new_name }}"
+  - debug: msg="{{ vlun_volume_name }} is a Reclaim from {{ vlun_host_name }} as a LUN number {{ lunid }}"
