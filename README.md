@@ -1,7 +1,7 @@
 # HPE 3PAR and HPE Primera modules for Ansible <h1>
 
 ### The HPE 3PAR and HPE Primera modules for Ansible enable automation of storage provisioning for the HPE 3PAR and HPE Primera array. 
-### The modules use the HPE 3PAR and HPE Primera SDK for Python to communicate with the storage array over the WSAPI REST interface.<h2>
+### The modules use the HPE 3PAR and HPE Primera SDK for Python to communicate with the storage array over the  REST interface.<h2>
 
 # Requirements  <h1>
 
