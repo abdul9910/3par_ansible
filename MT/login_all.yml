@@ -1,0 +1,8 @@
+##########################################################
+# Variable File for '3par login' #
+##########################################################
+
+# Cluster Login
+storage_system_ip: sg5lab-001.3par
+storage_system_username: 3paradm
+storage_system_password: PTzk5fVt

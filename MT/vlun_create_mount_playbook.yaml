@@ -1,0 +1,45 @@
+---
+
+- hosts: localhost
+  name: Create a Vlun in 3par
+  gather_facts: true
+  vars_prompt:
+     - name: vlun_volume_name
+       prompt: "Enter Volume name"
+       private: no
+     - name: vlun_host_name
+       prompt: "Enter Host Name"
+       private: no
+     - name: cpg
+       prompt: "Enter CPG QOS Level like CPGQos1_DR1_FC_R1,CPGQos2_DR1_FC_R5_3D1P,CPGQos3_DR1_FC_R5_7D1P,CPGQos4_DR1_NL_R6_6D2P"
+       private: no
+     - name: size
+       prompt: "Enter Volume size in GB"
+       private: no
+     - name: lunid
+       prompt: "Enter Volume Number"
+       private: no
+
+  vars_files:
+  - login_all.yml
+  tasks:
+  - name: Create VLUN in 3par S608897-005.3PAR
+    hpe3par_volume: 
+      storage_system_ip="{{ storage_system_ip }}"
+      storage_system_username="{{ storage_system_username }}"
+      storage_system_password="{{ storage_system_password }}"
+      state=present
+      volume_name="{{ vlun_volume_name }}"
+      size="{{ size }}"
+      size_unit=GiB
+      cpg="{{ cpg }}"
+  - name: Export the Volume to Hosts
+    hpe3par_vlun: 
+      storage_system_ip="{{ storage_system_ip }}"
+      storage_system_username="{{ storage_system_username }}"
+      storage_system_password="{{ storage_system_password }}"
+      state=export_volume_to_host
+      volume_name="{{ vlun_volume_name }}"
+      host_name="{{ vlun_host_name }}"
+      lunid="{{ lunid }}"
+  - debug: msg="{{ vlun_volume_name }} is a {{ size }}GB {{ cpg }} volume exported to {{ vlun_host_name }} as a LUN number {{ lunid }}"
