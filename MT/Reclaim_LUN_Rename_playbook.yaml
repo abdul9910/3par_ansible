@@ -14,7 +14,7 @@
        prompt: "Enter Volume Number"
        private: no
      - name: new_name
-       prompt: "Enter the Rename Name of Volume"
+       prompt: "Enter the Rename Name of the  Volume"
        private: no
   vars_files:
   - login_all.yml
