@@ -1,0 +1,26 @@
+---
+
+- hosts: localhost
+  name: Create Snapshot for the VLUN
+  gather_facts: true
+  vars_prompt:
+     - name: vlun_volume_name
+       prompt: "Enter Volume name you want to Snapshot"
+       private: no
+     - name: snapshot_name
+       prompt: "Enter Snapshot name"
+       private: no
+
+  vars_files:
+  - login_all.yml
+  tasks:
+     - name: Create Volume snasphot {{vlun_volume_name}}
+      hpe3par_snapshot: 
+        storage_system_ip="{{ storage_system_ip }}"
+        storage_system_username="{{ storage_system_username }}"
+        storage_system_password="{{ storage_system_password }}"
+        state=present
+        snapshot_name="snapshot_name"
+        base_volume_name="vlun_volume_name"
+        read_only=False
+  - debug: msg="{{ vlun_volume_name }} snapshot is created with the name {{snapshot_name}}"
